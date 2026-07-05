@@ -1,3 +1,5 @@
 streamlit
-scikit-learn
 numpy
+matplotlib
+scikit-learn
+scipy
