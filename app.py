@@ -32,7 +32,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y_binary, test_size=0.2, 
 @st.cache_resource
 def train_qda():
     # reg_param=0.1 est indispensable sur MNIST pour stabiliser les calculs des matrices
-    model = QuadraticDiscriminantAnalysis(reg_param=0.1)
+    model = QuadraticDiscriminantAnalysis(reg_param=0.5)
     model.fit(X_train, y_train)
     return model
 
