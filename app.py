@@ -25,10 +25,10 @@ with st.spinner("Chargement et préparation des données..."):
 # --- 2. RÉDUCTION 2D (PCA) ET ENTRAÎNEMENT QDA ---
 @st.cache_resource
 def compute_qda_model(X_data, y_data):
-    # Utilisation des composantes 1 et 3 pour accentuer la courbure
+    # Utilisation des composantes 1 et 2 pour accentuer la courbure parabolique
     pca_2d = PCA(n_components=3)
     X_pca = pca_2d.fit_transform(X_data)
-    X_2d = X_pca[:, [0, 2]] 
+    X_2d = X_pca[:, [1, 2]] 
     
     qda = QuadraticDiscriminantAnalysis()
     qda.fit(X_2d, y_data)
@@ -62,10 +62,10 @@ with col_visu:
     idx_sample = np.random.choice(len(X_2d), 150, replace=False)
     
     scatter = ax.scatter(X_2d[idx_sample, 0], X_2d[idx_sample, 1], c=y[idx_sample], cmap='coolwarm', alpha=0.7, edgecolors='k', s=45)
-    ax.set_xlabel("Composante Principale 1")
+    ax.set_xlabel("Composante Principale 2")
     ax.set_ylabel("Composante Principale 3")
     
-    # Tracé de la frontière QDA bien nette
+    # Tracé de la frontière QDA sous forme de courbe parabolique nette
     Z_qda = qda.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
     ax.contour(xx, yy, Z_qda, colors='blue', linewidths=3, levels=[0.5])
     
